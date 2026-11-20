@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "丰图义仓 · Thiên hạ đệ nhất thương",
+      "hasCanvas": false,
+      "bodyTextLen": 22401,
+      "bodyTextHash": "74ce9023a0821ea6b74ca1dce041eff1455cf189ef259c65beca637f9d20698b",
+      "bodyTextPrefix": "丰图义仓 Di tích Lịch sử 58 Kho Bảo tàng Nghiên cứu Tham quan « les ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "丰图义仓 · Thiên hạ đệ nhất thương",
+      "hasCanvas": false,
+      "bodyTextLen": 22356,
+      "bodyTextHash": "6e3c5e042aa881956e4caafd04516d551092598abc28bd3c8c14dbeba8991382",
+      "bodyTextPrefix": "丰图义仓 Tham quan « les greniers de la mémoire » Triều Ấp · Đại Lệ ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}
