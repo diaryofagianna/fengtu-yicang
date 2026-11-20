@@ -319,7 +319,7 @@ export function VaultExplorer({ lang }: { lang: string }) {
             <div className="mt-4" role="tabpanel">
               {tab === "shell" && (
                 <div className="space-y-3">
-                  <img src="/figures/storage.jpg" alt={zh ? "仓廒内部：架空木地板与高侧气窗，非某一编号的专属照片" : "Bên trong một gian vòm: sàn gỗ kê cao và cửa gió trên cao. Ảnh kiểu gian, không phải ảnh riêng của số đang chọn."} className="aspect-[3/2] w-full object-cover" />
+                  <img src="/figures/storage.jpg" alt={zh ? "仓廒内部：架空木地板与高侧气窗，非某一编号的专属照片" : "Bên trong một gian vòm: sàn gỗ kê cao và cửa gió trên cao. Ảnh kiểu gian, không phải ảnh riêng của số đang chọn."} className="aspect-[3/2] w-full object-cover" decoding="async" loading="lazy" />
                   <p className="text-sm leading-relaxed text-ink/85">
                     {line(lang, {
                       vi: "Mỗi ô là một hang gạch độc lập: tường ngăn dày, cửa gỗ hai cánh, sàn kê cao và cửa gió phía trên hồi lang. Cùng một kiểu cho cả 58 gian.",

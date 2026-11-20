@@ -1,7 +1,7 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { K as require_react, b as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
-import { A as ArrowDownRight, C as CircleCheck, D as Check, E as ChevronLeft, O as Calendar, S as CircleX, T as ChevronRight, _ as Info, a as Sun, b as ExternalLink, c as ShieldCheck, d as RotateCcw, f as Moon, g as Landmark, h as Layers, i as TriangleAlert, k as ArrowUpRight, l as Search, m as LoaderCircle, n as VolumeX, o as Square, p as MapPin, r as Volume2, s as SquareCheckBig, t as X, u as Route, v as Globe, w as CircleAlert, x as Compass, y as FileSearch } from "../_libs/lucide-react.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-SAbC4tnE.js
+import { C as ChevronLeft, D as ArrowDownRight, E as ArrowUpRight, S as ChevronRight, T as Calendar, _ as ExternalLink, a as Sun, b as CircleCheck, c as ShieldCheck, d as Moon, f as MapPin, g as FileSearch, h as Info, i as TriangleAlert, l as Route, m as Landmark, n as VolumeX, o as Square, p as Layers, r as Volume2, s as SquareCheckBig, t as X, u as RotateCcw, v as Compass, w as Check, x as CircleAlert, y as CircleX } from "../_libs/lucide-react.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-CXPHBNJg.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var PUBLISHED = {
@@ -426,7 +426,9 @@ function VaultExplorer({ lang }) {
 										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
 											src: "/figures/storage.jpg",
 											alt: zh ? "仓廒内部：架空木地板与高侧气窗，非某一编号的专属照片" : "Bên trong một gian vòm: sàn gỗ kê cao và cửa gió trên cao. Ảnh kiểu gian, không phải ảnh riêng của số đang chọn.",
-											className: "aspect-[3/2] w-full object-cover"
+											className: "aspect-[3/2] w-full object-cover",
+											decoding: "async",
+											loading: "lazy"
 										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 											className: "text-sm leading-relaxed text-ink/85",
 											children: line(lang, {
@@ -3011,156 +3013,33 @@ function qe({ lang: e, layers: t, visibleLayers: n, activeLayerId: r, stations: 
 		]
 	});
 }
-function Je(e) {
-	let t = `丰图义仓 ${e.query}`, n = `Bản HTML độc lập không kèm máy chủ Gemini. Mở liên kết bên dưới để xem kết quả Google Search cho câu hỏi này.`, r = `本页为独立 HTML 版本，未连接 Gemini 服务器。点击下方链接，在 Google 中查看该问题的实时搜索结果。`;
-	return {
-		summary: e.lang === `zh` ? r : e.lang === `vi` ? n : `${n}\n${r}`,
-		sources: [{
-			title: `Google: ${t}`,
-			uri: `https://www.google.com/search?q=${encodeURIComponent(t)}`
-		}],
-		webSearchQueries: [t],
-		model: `offline`
-	};
-}
-async function Ye(e) {
-	if (typeof location < `u` && location.protocol === `file:`) return Je(e);
-	let t = null;
-	try {
-		let n = await fetch(`/api/heritage-grounding`, {
-			method: `POST`,
-			headers: { "Content-Type": `application/json` },
-			body: JSON.stringify(e)
-		}), r = await n.json().catch(() => null);
-		if (n.ok && r && typeof r.summary == `string`) return r;
-		r && typeof r.error == `string` && (t = r.error);
-	} catch {}
-	if (t) throw Error(t);
-	return Je(e);
-}
-function Xe({ lang: e, contextTitle: t, presets: n, compact: r = !1 }) {
-	let i = e === `zh`, [a, o] = (0, h.useState)(``), [s, c] = (0, h.useState)(!1), [l, u] = (0, h.useState)(null), [d, f] = (0, h.useState)(null), [p, m] = (0, h.useState)(null), g = async (n, r = null) => {
-		let a = n.trim();
-		if (a) {
-			c(!0), u(null), m(r);
-			try {
-				let n = await Ye({
-					query: a,
-					segmentTitle: t,
-					lang: e
-				});
-				f(n);
-			} catch (e) {
-				u(e instanceof Error ? e.message : i ? `联网检索失败，请稍后重试。` : `Không thể tra cứu trực tuyến lúc này. Vui lòng thử lại.`);
-			} finally {
-				c(!1);
-			}
-		}
-	};
+function Xe({ lang: e, presets: n, compact: r = !1 }) {
+	let i = e === `zh`, a = e === `bilingual`;
 	return (0, A.jsxs)(`div`, {
 		"data-testid": `search-grounding-panel`,
 		className: `border border-line/36 bg-paper-alt/35 ${r ? `p-4` : `p-4 sm:p-5`}`,
-		children: [
-			(0, A.jsxs)(`div`, {
-				className: `flex flex-wrap items-center justify-between gap-2 border-b border-line/27 pb-2.5`,
-				children: [(0, A.jsxs)(`span`, {
-					className: `inline-flex items-center gap-1.5 text-xs font-bold text-ink`,
-					children: [(0, A.jsx)(Globe, {
-						className: `h-3.5 w-3.5 text-celadon`,
-						"aria-hidden": `true`
-					}), (0, A.jsx)(`span`, { children: i ? `Google 搜索实时核验` : `Kiểm chứng Trực tuyến (Google Search)` })]
-				}), (0, A.jsx)(`span`, {
+		children: [(0, A.jsxs)(`div`, {
+			className: `border-b border-line/27 pb-2.5`,
+			children: [(0, A.jsx)(`p`, {
+				className: `text-xs font-bold text-ink`,
+				children: i ? `在 Google 中打开` : `Mở trên Google`
+			}), (0, A.jsx)(`p`, {
+				className: `mt-1 text-xs leading-relaxed text-ink/70`,
+				children: i ? `本站不检索，也不核验。以下每条都会离开本页，打开 Google 搜索。` : a ? `Trang này không tra cứu và không kiểm chứng. Mỗi mục rời khỏi trang và mở Google. · 本站不检索，也不核验。` : `Trang này không tra cứu và không kiểm chứng. Mỗi mục rời khỏi trang và mở một tìm kiếm Google.`
+			})]
+		}), (0, A.jsx)(`ul`, {
+			className: `mt-3 flex flex-col gap-1`,
+			children: n.map((t) => (0, A.jsx)(`li`, { children: (0, A.jsxs)(`a`, {
+				href: `https://www.google.com/search?q=${encodeURIComponent(t.query)}`,
+				target: `_blank`,
+				rel: `noopener noreferrer`,
+				className: `inline-flex min-h-10 items-center gap-2 text-sm text-celadon underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-cinnabar`,
+				children: [(0, A.jsx)(`span`, { children: i ? t.label.zh : a ? `${t.label.vi} · ${t.label.zh}` : t.label.vi }), (0, A.jsx)(`span`, {
 					className: `font-mono text-[11px] text-ink/55`,
-					children: i ? `附带公开来源链接` : `Kèm liên kết trích dẫn`
+					children: `Google`
 				})]
-			}),
-			(0, A.jsx)(`div`, {
-				className: `mt-3 flex flex-wrap gap-2`,
-				children: n.map((e) => {
-					let t = p === e.id;
-					return (0, A.jsx)(`button`, {
-						type: `button`,
-						disabled: s,
-						onClick: () => g(e.query, e.id),
-						className: `border px-2.5 py-1.5 text-left text-xs transition-colors focus-visible:outline-2 focus-visible:outline-cinnabar disabled:opacity-50 ${t ? `border-celadon bg-celadon/10 font-semibold text-ink` : `border-line/36 bg-paper text-ink/80 hover:border-celadon hover:text-ink`}`,
-						children: i ? e.label.zh : e.label.vi
-					}, e.id);
-				})
-			}),
-			(0, A.jsxs)(`form`, {
-				onSubmit: (e) => {
-					e.preventDefault(), g(a, null);
-				},
-				className: `mt-3 flex flex-col gap-2 sm:flex-row`,
-				children: [
-					(0, A.jsx)(`label`, {
-						htmlFor: `grounding-input-${r ? `map` : `visit`}`,
-						className: `sr-only`,
-						children: i ? `输入需要核实的丰图义仓信息` : `Nhập câu hỏi kiểm chứng về Phong Đồ Nghĩa Thương`
-					}),
-					(0, A.jsx)(`input`, {
-						id: `grounding-input-${r ? `map` : `visit`}`,
-						type: `text`,
-						value: a,
-						onChange: (e) => o(e.target.value),
-						placeholder: i ? `输入关键词实时核查（如：2026开放时间、城墙修缮、交通）` : `Hỏi thông tin cập nhật (vd: giờ mở cửa 2026, kiến trúc tường thành...)`,
-						className: `flex-1 border border-line/45 bg-paper px-3 py-2 text-xs text-ink placeholder:text-ink/45 focus:border-celadon focus:outline-none`
-					}),
-					(0, A.jsxs)(`button`, {
-						type: `submit`,
-						disabled: s || !a.trim(),
-						className: `inline-flex min-h-9 items-center justify-center gap-1.5 border border-ink bg-ink px-3.5 py-2 text-xs font-semibold text-paper transition-opacity hover:opacity-90 disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-cinnabar`,
-						children: [s ? (0, A.jsx)(LoaderCircle, {
-							className: `h-3.5 w-3.5 animate-spin`,
-							"aria-hidden": `true`
-						}) : (0, A.jsx)(Search, {
-							className: `h-3.5 w-3.5`,
-							"aria-hidden": `true`
-						}), (0, A.jsx)(`span`, { children: i ? `联网检索` : `Tra cứu` })]
-					})
-				]
-			}),
-			s && (0, A.jsxs)(`p`, {
-				className: `mt-3 flex items-center gap-2 text-xs text-ink/65`,
-				children: [(0, A.jsx)(LoaderCircle, {
-					className: `h-3.5 w-3.5 animate-spin text-celadon`,
-					"aria-hidden": `true`
-				}), (0, A.jsx)(`span`, { children: i ? `正在检索公开网络资料并核对来源...` : `Đang đối chiếu dữ liệu tìm kiếm công khai...` })]
-			}),
-			l && (0, A.jsx)(`div`, {
-				role: `alert`,
-				className: `mt-3 border border-cinnabar/50 bg-cinnabar/5 p-3 text-xs text-cinnabar`,
-				children: l
-			}),
-			d && !s && (0, A.jsxs)(`div`, {
-				className: `mt-3 border-t border-line/27 pt-3`,
-				children: [(0, A.jsx)(`p`, {
-					className: `whitespace-pre-line text-xs leading-relaxed text-ink/85`,
-					children: d.summary
-				}), d.sources.length > 0 && (0, A.jsxs)(`div`, {
-					className: `mt-3 border-t border-line/18 pt-2.5`,
-					children: [(0, A.jsx)(`p`, {
-						className: `mb-1.5 font-mono text-[11px] uppercase tracking-wider text-ink/55`,
-						children: i ? `Google 搜索引用来源` : `Nguồn Google Search đối chiếu`
-					}), (0, A.jsx)(`ul`, {
-						className: `space-y-1`,
-						children: d.sources.map((e) => (0, A.jsx)(`li`, { children: (0, A.jsxs)(`a`, {
-							href: e.uri,
-							target: `_blank`,
-							rel: `noopener noreferrer`,
-							className: `inline-flex items-center gap-1 text-xs text-celadon hover:underline focus-visible:outline-2 focus-visible:outline-cinnabar`,
-							children: [(0, A.jsx)(`span`, {
-								className: `truncate max-w-[260px] sm:max-w-[420px]`,
-								children: e.title
-							}), (0, A.jsx)(ExternalLink, {
-								className: `h-3 w-3 shrink-0`,
-								"aria-hidden": `true`
-							})]
-						}) }, e.uri))
-					})]
-				})]
-			})
-		]
+			}) }, t.id))
+		})]
 	});
 }
 var Ze = [
@@ -3359,6 +3238,8 @@ function Qe({ lang: e, activeStationId: t, onSelectStation: n, visitedIds: r, on
 								children: [(0, A.jsx)(`div`, {
 									className: `bg-paper-alt p-2 border border-line/27`,
 									children: (0, A.jsx)(`img`, {
+										decoding: `async`,
+										loading: `lazy`,
 										src: m.image,
 										alt: j(m.name, e),
 										referrerPolicy: `no-referrer`,
@@ -3509,6 +3390,8 @@ function et({ lang: e }) {
 						(0, A.jsxs)(`figure`, {
 							className: `frame bg-paper-alt p-2`,
 							children: [(0, A.jsx)(`img`, {
+								decoding: `async`,
+								loading: `lazy`,
 								src: Ce.museum,
 								alt: l ? `传统木斗、石磨、簸箕与旧粮票馆藏展示意象` : `Đẩu đong gỗ, cối đá xay, sàng thóc và tem phiếu lương thực cổ`,
 								referrerPolicy: `no-referrer`,
@@ -3822,6 +3705,8 @@ function nt({ lang: e, onLangChange: t, theme: n, onThemeToggle: r, onExplorePla
 						children: [(0, A.jsx)(`div`, {
 							className: `frame relative flex-1 bg-paper-alt p-2.5`,
 							children: (0, A.jsx)(`img`, {
+								decoding: `async`,
+								fetchPriority: `high`,
 								src: Ce.hero,
 								alt: a ? `丰图义仓清代青砖城墙与飞檐仓楼全景` : `Toàn cảnh tường thành gạch xanh và lầu cổng Phong Đồ Nghĩa Thương dưới nắng chiều`,
 								referrerPolicy: `no-referrer`,
@@ -3852,7 +3737,7 @@ function nt({ lang: e, onLangChange: t, theme: n, onThemeToggle: r, onExplorePla
 				}),
 				(0, A.jsx)(`nav`, {
 					"aria-label": a ? `十章导览索引` : `Mục lục 10 chương triển lãm`,
-					className: `mt-5 flex items-center gap-4 rail overflow-x-auto border-t border-line/18 pt-3.5 text-xs font-medium text-ink/75`,
+					className: `mt-5 hidden items-center gap-4 rail overflow-x-auto border-t border-line/18 pt-3.5 text-xs font-medium text-ink/75 lg:flex`,
 					children: s.map((e) => (0, A.jsx)(`a`, {
 						href: e.href,
 						className: `whitespace-nowrap shrink-0 transition-colors hover:text-cinnabar focus-visible:outline-2 focus-visible:outline-cinnabar`,
@@ -4421,6 +4306,8 @@ function it({ lang: e }) {
 						}), (0, A.jsxs)(`figure`, { children: [(0, A.jsx)(`div`, {
 							className: `frame bg-paper-alt p-2`,
 							children: (0, A.jsx)(`img`, {
+								decoding: `async`,
+								loading: `lazy`,
 								src: Ce.storage,
 								alt: d ? `丰图义仓内部木板与高窗通风实景` : `Bên trong gian kho với sàn gỗ kê cao, vách vôi và cửa chớp gỗ`,
 								referrerPolicy: `no-referrer`,
@@ -4559,6 +4446,8 @@ function at({ lang: e, onJumpToSource: t }) {
 						] }), (0, A.jsx)(`div`, {
 							className: `border border-line/36 bg-paper p-1.5`,
 							children: (0, A.jsx)(`img`, {
+								decoding: `async`,
+								loading: `lazy`,
 								src: Ce.stele,
 								alt: i ? `清代石刻碑文参考意象` : `Minh họa văn bia đá chạm khắc đời Thanh`,
 								referrerPolicy: `no-referrer`,
@@ -4818,11 +4707,317 @@ function ot({ lang: e, highlightedSourceId: t }) {
 	});
 }
 function st({ lang: e, onStartTour: t }) {
-	let n = e === `zh`;
-	return (0, A.jsx)(`header`, {
-		className: `sticky top-0 z-30 border-b border-line/27 bg-paper/95 backdrop-blur-sm`,
+	let n = e === `zh`, [o, s] = (0, h.useState)(`top`), [mode, setMode] = (0, h.useState)(() => {
+		try {
+			let v = localStorage.getItem(`fengtu_pin_mode_v1`);
+			if (v === `pin` || v === `auto` || v === `off`) return v;
+		} catch {}
+		return `pin`;
+	}), [shown, setShown] = (0, h.useState)(!0), [open, setOpen] = (0, h.useState)(!1), c = (0, h.useRef)(null), r = [
+		{
+			href: `#explore`,
+			label: n ? `全景` : `Di tích`
+		},
+		{
+			href: `#timeline`,
+			label: n ? `历史` : `Lịch sử`
+		},
+		{
+			href: `#architecture`,
+			label: n ? `建筑` : `Kiến trúc`
+		},
+		{
+			href: `#granaries`,
+			label: n ? `五十八廒` : `58 Kho`
+		},
+		{
+			href: `#people`,
+			label: n ? `人物` : `Nhân vật`
+		},
+		{
+			href: `#museum`,
+			label: n ? `粮馆` : `Bảo tàng`
+		},
+		{
+			href: `#living`,
+			label: n ? `活态` : `Di sản sống`
+		},
+		{
+			href: `#research`,
+			label: n ? `档案` : `Nghiên cứu`
+		}
+	], l = [
+		{
+			id: `top`,
+			href: `#top`,
+			n: `00`,
+			label: n ? `序章` : `Dẫn nhập`
+		},
+		{
+			id: `explore`,
+			href: `#explore`,
+			n: `01`,
+			label: n ? `全景` : `Di tích`
+		},
+		{
+			id: `timeline`,
+			href: `#timeline`,
+			n: `02`,
+			label: n ? `历史` : `Lịch sử`
+		},
+		{
+			id: `architecture`,
+			href: `#architecture`,
+			n: `03`,
+			label: n ? `建筑` : `Kiến trúc`
+		},
+		{
+			id: `granaries`,
+			href: `#granaries`,
+			n: `04`,
+			label: n ? `五十八廒` : `58 Kho`
+		},
+		{
+			id: `people`,
+			href: `#people`,
+			n: `05`,
+			label: n ? `人物` : `Nhân vật`
+		},
+		{
+			id: `museum`,
+			href: `#museum`,
+			n: `06`,
+			label: n ? `博物馆` : `Bảo tàng`
+		},
+		{
+			id: `living`,
+			href: `#living`,
+			n: `07`,
+			label: n ? `活态` : `Di sản sống`
+		},
+		{
+			id: `visit`,
+			href: `#visit`,
+			n: `08`,
+			label: n ? `参观` : `Tham quan`
+		},
+		{
+			id: `research`,
+			href: `#research`,
+			n: `09`,
+			label: n ? `档案` : `Nguồn`
+		}
+	], modes = [
+		{
+			id: `pin`,
+			short: n ? `固定` : `Ghim`,
+			label: n ? `始终显示` : `Luôn hiện`,
+			hint: n ? `阅读时保持在顶部` : `Giữ thanh ở trên khi đọc`
+		},
+		{
+			id: `auto`,
+			short: n ? `随滚` : `Tự ẩn`,
+			label: n ? `下滚时收起` : `Ẩn khi kéo xuống`,
+			hint: n ? `上滚时重新出现` : `Kéo lên thì thanh trở lại`
+		},
+		{
+			id: `off`,
+			short: n ? `隐藏` : `Giấu`,
+			label: n ? `隐藏导航` : `Giấu thanh`,
+			hint: n ? `只留仓名，可再打开` : `Chỉ còn tên kho, bấm để mở lại`
+		}
+	];
+	(0, h.useEffect)(() => {
+		let e = l.map((e) => e.id), o = [], t = ``, n = 0, measure = () => {
+			o = e.map((e) => {
+				let t = document.getElementById(e);
+				return t ? t.offsetTop : 0;
+			});
+		}, r = () => {
+			n = 0;
+			let r = window.scrollY + 72, i = e[0];
+			for (let t = 0; t < e.length; t++) o[t] <= r && (i = e[t]);
+			i !== t && (t = i, s(i));
+		}, i = () => {
+			n || (n = requestAnimationFrame(r));
+		}, a = () => {
+			measure(), i();
+		};
+		measure(), r();
+		let c = document.querySelector(`main`), u = typeof ResizeObserver < `u` ? new ResizeObserver(a) : null;
+		return u && c && u.observe(c), window.addEventListener(`scroll`, i, { passive: !0 }), window.addEventListener(`resize`, a), () => {
+			cancelAnimationFrame(n), u?.disconnect(), window.removeEventListener(`scroll`, i), window.removeEventListener(`resize`, a);
+		};
+	}, []);
+	(0, h.useEffect)(() => {
+		let e = c.current;
+		if (!e) return;
+		let t = e.querySelector(`[href="#${o}"]`);
+		if (!t) return;
+		let n = t.getBoundingClientRect(), r = e.getBoundingClientRect(), i = matchMedia(`(prefers-reduced-motion: reduce)`).matches;
+		e.scrollTo({
+			left: e.scrollLeft + n.left - r.left - r.width / 2 + n.width / 2,
+			behavior: i ? `auto` : `smooth`
+		});
+	}, [o]);
+	(0, h.useEffect)(() => {
+		try {
+			localStorage.setItem(`fengtu_pin_mode_v1`, mode);
+		} catch {}
+	}, [mode]);
+	(0, h.useEffect)(() => {
+		if (mode !== `auto`) {
+			setShown(!0);
+			return;
+		}
+		let e = window.scrollY, t = !0, n = 0, r = () => {
+			n = 0;
+			let r = window.scrollY, i = r < 64 ? !0 : r > e + 8 ? !1 : r + 8 < e ? !0 : t;
+			e = r;
+			i !== t && (t = i, setShown(i), i || setOpen(!1));
+		}, i = () => {
+			n || (n = requestAnimationFrame(r));
+		};
+		return window.addEventListener(`scroll`, i, { passive: !0 }), () => {
+			cancelAnimationFrame(n), window.removeEventListener(`scroll`, i);
+		};
+	}, [mode]);
+	(0, h.useEffect)(() => {
+		if (!open) return;
+		let q = () => [...document.querySelectorAll(`.pin-menu`)].find((e) => e.getClientRects().length), o = () => {
+			let e = q();
+			(e?.querySelector(`[aria-selected=true]`) || e?.querySelector(`[role=option]`))?.focus();
+		}, r = requestAnimationFrame(o), e = (t) => {
+			if (t.key === `Escape`) {
+				setOpen(!1);
+				return;
+			}
+			if (t.key !== `ArrowDown` && t.key !== `ArrowUp` && t.key !== `Home` && t.key !== `End`) return;
+			let e = q();
+			if (!e) return;
+			let n = [...e.querySelectorAll(`[role=option]`)];
+			if (!n.length) return;
+			t.preventDefault();
+			let i = n.indexOf(document.activeElement);
+			t.key === `Home` ? i = 0 : t.key === `End` ? i = n.length - 1 : t.key === `ArrowDown` ? i = i < 0 ? 0 : (i + 1) % n.length : i = i < 0 ? n.length - 1 : (i - 1 + n.length) % n.length, n[i].focus();
+		}, n = (t) => {
+			let e = t.target;
+			e instanceof Element && e.closest(`[data-pin-menu]`) || setOpen(!1);
+		};
+		return document.addEventListener(`keydown`, e), document.addEventListener(`pointerdown`, n), () => {
+			cancelAnimationFrame(r), document.removeEventListener(`keydown`, e), document.removeEventListener(`pointerdown`, n);
+			let t = [...document.querySelectorAll(`[data-pin-menu] > button`)].find((e) => e.getClientRects().length);
+			t && document.activeElement === document.body && t.focus();
+		};
+	}, [open]);
+	let u = `whitespace-nowrap shrink-0 py-1 transition-colors hover:text-cinnabar focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cinnabar`, d = `min-h-11 shrink-0 bg-cinnabar px-3 py-2 text-xs font-semibold tracking-wide text-paper whitespace-nowrap transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cinnabar`, m = `min-h-11 shrink-0 px-1 text-xs font-semibold tracking-wide text-cinnabar whitespace-nowrap underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cinnabar`, away = mode === `auto` && !shown, menu = () => {
+		let a = modes.find((e) => e.id === mode);
+		return (0, A.jsxs)(`div`, {
+			"data-pin-menu": `true`,
+			className: `relative shrink-0`,
+			children: [(0, A.jsxs)(`button`, {
+				type: `button`,
+				"aria-expanded": open,
+				"aria-haspopup": `listbox`,
+				"aria-label": n ? `固定栏：${a.label}` : `Thanh ghim: ${a.label}. Tùy chọn hiển thị`,
+				onClick: () => setOpen((e) => !e),
+				className: `inline-flex h-11 items-center gap-1 border px-2 text-[11px] font-semibold tracking-wide whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cinnabar ${open ? `border-cinnabar text-cinnabar` : `border-line/50 text-ink`}`,
+				children: [(0, A.jsx)(`span`, { children: a.short }), (0, A.jsx)(`span`, {
+					"aria-hidden": `true`,
+					className: `text-[9px] leading-none`,
+					children: open ? `▴` : `▾`
+				})]
+			}), open && (0, A.jsxs)(`div`, {
+				role: `listbox`,
+				"aria-label": n ? `固定栏显示` : `Hiển thị thanh ghim`,
+				className: `pin-menu absolute right-0 top-full z-40 mt-1 w-56 border border-line/40 bg-paper p-1 text-left`,
+				children: [(0, A.jsx)(`p`, {
+					className: `px-2 pt-1.5 pb-1 font-mono text-[10px] tracking-wider text-ink/50 uppercase`,
+					children: n ? `固定栏` : `Thanh ghim`
+				}), modes.map((e) => {
+					let t = mode === e.id;
+					return (0, A.jsxs)(`button`, {
+						type: `button`,
+						role: `option`,
+						"aria-selected": t,
+						onClick: () => {
+							setMode(e.id), setOpen(!1);
+						},
+						className: `flex w-full items-start gap-2 px-2 py-2 text-left ${t ? `bg-paper-alt text-cinnabar` : `text-ink`}`,
+						children: [(0, A.jsx)(`span`, {
+							className: `mt-1 h-1.5 w-1.5 shrink-0 ${t ? `bg-cinnabar` : `border border-line`}`,
+							"aria-hidden": `true`
+						}), (0, A.jsxs)(`span`, {
+							className: `min-w-0`,
+							children: [(0, A.jsx)(`span`, {
+								className: `block text-xs font-medium`,
+								children: e.label
+							}), (0, A.jsx)(`span`, {
+								className: `mt-0.5 block text-[11px] leading-snug ${t ? `text-cinnabar/80` : `text-ink/55`}`,
+								children: e.hint
+							})]
+						})]
+					}, e.id);
+				})]
+			})]
+		});
+	};
+	if (mode === `off`) return (0, A.jsx)(`header`, {
+		className: `pin-bar sticky top-0 z-30 border-b border-line/27 bg-paper pt-[env(safe-area-inset-top)]`,
 		children: (0, A.jsxs)(`div`, {
-			className: `mx-auto flex max-w-6xl items-center justify-between gap-8 px-4 py-3 sm:px-6`,
+			className: `mx-auto flex max-w-6xl items-center justify-between gap-3 px-3 py-0.5 sm:px-6`,
+			children: [(0, A.jsx)(`a`, {
+				href: `#top`,
+				className: `text-sm font-bold tracking-wide text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cinnabar`,
+				children: `丰图义仓`
+			}), (0, A.jsxs)(`div`, {
+				className: `flex items-center gap-2`,
+				children: [menu(), (0, A.jsx)(`button`, {
+					type: `button`,
+					onClick: () => setMode(`pin`),
+					className: m,
+					children: n ? `显示目录` : `Hiện mục lục`
+				})]
+			})]
+		})
+	});
+	return (0, A.jsxs)(`header`, {
+		className: `pin-bar sticky top-0 z-30 border-b border-line/27 bg-paper pt-[env(safe-area-inset-top)] ${away ? `pin-away` : ``}`,
+		children: [(0, A.jsxs)(`div`, {
+			className: `flex items-center gap-2 px-3 lg:hidden`,
+			children: [
+				(0, A.jsx)(`a`, {
+					href: `#top`,
+					className: `shrink-0 text-sm font-bold tracking-wide text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cinnabar`,
+					children: `丰图义仓`
+				}),
+				(0, A.jsx)(`nav`, {
+					ref: c,
+					"aria-label": n ? `十章导览` : `Mục lục mười chương`,
+					className: `pin-rail flex min-w-0 flex-1 items-center overflow-x-auto border-l border-line/30 pl-1`,
+					children: l.map((e) => {
+						let t = o === e.id;
+						return (0, A.jsxs)(`a`, {
+							href: e.href,
+							"aria-current": t ? `true` : void 0,
+							className: `inline-flex h-11 shrink-0 items-center gap-1 px-1.5 font-mono text-[13px] tabular-nums whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cinnabar ${t ? `pin-current` : `text-ink/70`}`,
+							children: [e.n, t && (0, A.jsx)(`span`, {
+								className: `font-sans text-xs font-medium`,
+								children: e.label
+							})]
+						}, e.id);
+					})
+				}),
+				menu(),
+				(0, A.jsx)(`button`, {
+					type: `button`,
+					onClick: t,
+					className: m,
+					children: n ? `导览` : `Tham quan`
+				})
+			]
+		}), (0, A.jsxs)(`div`, {
+			className: `mx-auto hidden max-w-6xl items-center justify-between gap-3 px-4 py-2.5 sm:px-6 lg:flex`,
 			children: [
 				(0, A.jsx)(`a`, {
 					href: `#top`,
@@ -4831,42 +5026,28 @@ function st({ lang: e, onStartTour: t }) {
 				}),
 				(0, A.jsx)(`nav`, {
 					"aria-label": n ? `主导航` : `Điều hướng chính`,
-					className: `hidden md:flex items-center gap-6 text-sm font-medium text-ink/75`,
-					children: [
-						{
-							href: `#explore`,
-							label: n ? `全景探索` : `Di tích`
-						},
-						{
-							href: `#timeline`,
-							label: n ? `历史长卷` : `Lịch sử`
-						},
-						{
-							href: `#granaries`,
-							label: n ? `五十八廒` : `58 Kho`
-						},
-						{
-							href: `#museum`,
-							label: n ? `粮文化馆` : `Bảo tàng`
-						},
-						{
-							href: `#research`,
-							label: n ? `研究档案` : `Nghiên cứu`
-						}
-					].map((e) => (0, A.jsx)(`a`, {
-						href: e.href,
-						className: `whitespace-nowrap shrink-0 transition-colors hover:text-cinnabar focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cinnabar`,
-						children: e.label
-					}, e.href))
+					className: `flex min-w-0 items-center gap-4 text-sm font-medium text-ink/75`,
+					children: r.map((e) => {
+						let t = o === e.href.slice(1);
+						return (0, A.jsx)(`a`, {
+							href: e.href,
+							"aria-current": t ? `true` : void 0,
+							className: `${u} ${t ? `pin-current` : ``}`,
+							children: e.label
+						}, e.href);
+					})
 				}),
-				(0, A.jsx)(`button`, {
-					type: `button`,
-					onClick: t,
-					className: `min-h-10 bg-cinnabar px-4 py-2 text-xs font-semibold tracking-wide text-paper whitespace-nowrap shrink-0 transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cinnabar`,
-					children: n ? `参观导览` : `Tham quan`
+				(0, A.jsxs)(`div`, {
+					className: `flex items-center gap-2`,
+					children: [menu(), (0, A.jsx)(`button`, {
+						type: `button`,
+						onClick: t,
+						className: d,
+						children: n ? `参观导览` : `Tham quan`
+					})]
 				})
 			]
-		})
+		})]
 	});
 }
 function ct({ lang: e, selectedRouteId: t, onSelectRoute: n, visitedIds: r, onToggleVisited: i, onResetVisited: a, onJumpToStation: o }) {
@@ -5021,6 +5202,7 @@ function ct({ lang: e, selectedRouteId: t, onSelectRoute: n, visitedIds: r, onTo
 										src: m.image,
 										alt: j(m.name, e),
 										className: `h-40 w-full object-cover`,
+										decoding: `async`,
 										loading: `lazy`
 									})
 								}), (0, A.jsxs)(`div`, {
@@ -5352,18 +5534,30 @@ function ft() {
 	});
 }
 function ScrollProgress() {
-	const [fallback, setFallback] = (0, import_react.useState)(null);
+	const bar = (0, import_react.useRef)(null);
 	(0, import_react.useEffect)(() => {
+		const el = bar.current;
+		if (!el) return;
 		if (typeof CSS !== "undefined" && CSS.supports("animation-timeline", "scroll()")) return;
-		const onScroll = () => {
+		let frame = 0;
+		let last = -1;
+		const apply = () => {
+			frame = 0;
 			const root = document.documentElement;
 			const max = root.scrollHeight - root.clientHeight;
-			setFallback(max > 0 ? root.scrollTop / max : 0);
+			const next = max > 0 ? root.scrollTop / max : 0;
+			if (Math.abs(next - last) < .004) return;
+			last = next;
+			el.style.transform = `scaleX(${next})`;
 		};
-		onScroll();
+		const onScroll = () => {
+			if (!frame) frame = requestAnimationFrame(apply);
+		};
+		apply();
 		window.addEventListener("scroll", onScroll, { passive: true });
 		window.addEventListener("resize", onScroll);
 		return () => {
+			cancelAnimationFrame(frame);
 			window.removeEventListener("scroll", onScroll);
 			window.removeEventListener("resize", onScroll);
 		};
@@ -5372,8 +5566,8 @@ function ScrollProgress() {
 		className: "scroll-progress",
 		"aria-hidden": true,
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "scroll-progress-bar",
-			style: fallback == null ? void 0 : { transform: `scaleX(${fallback})` }
+			ref: bar,
+			className: "scroll-progress-bar"
 		})
 	});
 }
