@@ -41,7 +41,7 @@ try {
       const root = document.documentElement;
       const buttons = [...document.querySelectorAll("#granaries button")];
       const gridButtons = [...document.querySelectorAll("#granaries .vault-grid-cell")];
-      const mapButtons = [...document.querySelectorAll("#granaries .vault-map-cell[role="button"]")];
+      const mapButtons = [...document.querySelectorAll('#granaries .vault-map-cell[role="button"]')];
       const gridLabels = new Set(gridButtons.map((button) => button.getAttribute("aria-label")));
       const mapButtonsWithoutEquivalent = mapButtons
         .filter((button) => !gridLabels.has(button.getAttribute("aria-label")))
