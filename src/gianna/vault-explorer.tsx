@@ -214,9 +214,9 @@ export function VaultExplorer({ lang }: { lang: string }) {
     const currentIndex = tabs.findIndex((item) => item.id === current);
     let nextIndex: number;
 
-    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+    if (event.key === "ArrowRight") {
       nextIndex = (currentIndex + 1) % tabs.length;
-    } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+    } else if (event.key === "ArrowLeft") {
       nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
     } else if (event.key === "Home") {
       nextIndex = 0;
@@ -361,7 +361,7 @@ export function VaultExplorer({ lang }: { lang: string }) {
               </div>
             </div>
 
-            <div className="mt-4 flex border border-line/36 bg-paper-alt/60 p-0.5" role="tablist" aria-label={zh ? "仓廒档案标签" : "Thẻ thông tin gian kho"}>
+            <div className="mt-4 flex border border-line/36 bg-paper-alt/60 p-0.5" role="tablist" aria-orientation="horizontal" aria-label={zh ? "仓廒档案标签" : "Thẻ thông tin gian kho"}>
               {tabs.map((item) => {
                 const on = tab === item.id;
                 return (
