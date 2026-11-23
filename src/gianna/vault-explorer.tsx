@@ -151,6 +151,11 @@ export function VaultExplorer({ lang }: { lang: string }) {
   const [n, setN] = useState(58);
   const [tab, setTab] = useState<"shell" | "measure" | "look">("shell");
   const gridRef = useRef<HTMLDivElement>(null);
+const rootRef = useRef<HTMLElement>(null);
+
+useEffect(() => {
+  rootRef.current?.setAttribute("data-hydrated", "true");
+}, []);
   const zh = lang === "zh";
   const { cell, side } = sideOf(n);
   const code = String(n).padStart(2, "0");
@@ -235,7 +240,11 @@ export function VaultExplorer({ lang }: { lang: string }) {
   };
 
   return (
-    <section id="granaries" className="scroll-mt-24 border-b border-line/27 py-14 sm:py-16">
+    <section
+  ref={rootRef}
+  id="granaries"
+  className="scroll-mt-24 border-b border-line/27 py-14 sm:py-16"
+>
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
