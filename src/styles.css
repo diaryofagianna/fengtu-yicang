@@ -50,26 +50,42 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 6.5rem;
   scrollbar-width: thin;
-  scrollbar-color: var(--theme-celadon) transparent;
+  scrollbar-color: var(--theme-celadon) var(--theme-paper-alt);
 }
 
 html::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
 }
 
 html::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--theme-paper-alt);
 }
 
 html::-webkit-scrollbar-thumb {
-  background: color-mix(in srgb, var(--theme-celadon) 72%, var(--theme-paper));
-  border: 2px solid var(--theme-outer);
+  background: var(--theme-celadon);
+  border: 3px solid var(--theme-paper-alt);
   border-radius: 999px;
 }
 
 html::-webkit-scrollbar-thumb:hover {
   background: var(--theme-cinnabar);
+}
+
+:root.dark html,
+:root[data-theme="dark"] html {
+  scrollbar-color: var(--theme-celadon) var(--theme-paper-alt);
+}
+
+:root.dark html::-webkit-scrollbar-track,
+:root[data-theme="dark"] html::-webkit-scrollbar-track {
+  background: var(--theme-paper-alt);
+}
+
+:root.dark html::-webkit-scrollbar-thumb,
+:root[data-theme="dark"] html::-webkit-scrollbar-thumb {
+  background: var(--theme-celadon);
+  border-color: var(--theme-paper-alt);
 }
 
 .scroll-progress {
@@ -132,11 +148,39 @@ html::-webkit-scrollbar-thumb:hover {
 }
 
 .pin-rail {
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--theme-celadon) var(--theme-paper-alt);
 }
 
 .pin-rail::-webkit-scrollbar {
-  display: none;
+  width: 12px;
+  height: 12px;
+}
+
+.pin-rail::-webkit-scrollbar-track {
+  background: var(--theme-paper-alt);
+}
+
+.pin-rail::-webkit-scrollbar-thumb {
+  background: var(--theme-celadon);
+  border: 3px solid var(--theme-paper-alt);
+  border-radius: 999px;
+}
+
+:root.dark .pin-rail,
+:root[data-theme="dark"] .pin-rail {
+  scrollbar-color: var(--theme-celadon) var(--theme-paper-alt);
+}
+
+:root.dark .pin-rail::-webkit-scrollbar-track,
+:root[data-theme="dark"] .pin-rail::-webkit-scrollbar-track {
+  background: var(--theme-paper-alt);
+}
+
+:root.dark .pin-rail::-webkit-scrollbar-thumb,
+:root[data-theme="dark"] .pin-rail::-webkit-scrollbar-thumb {
+  background: var(--theme-celadon);
+  border-color: var(--theme-paper-alt);
 }
 
 .pin-current {
@@ -258,8 +302,46 @@ img {
 }
 
 button,
-[role="button"] {
+[role="button"],
+a[href],
+[role="option"],
+summary,
+label[for] {
   cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled="true"],
+:disabled {
+  cursor: not-allowed;
+}
+
+input:not([type]),
+input[type="text"],
+input[type="search"],
+input[type="email"],
+input[type="number"],
+input[type="url"],
+input[type="tel"],
+input[type="password"],
+textarea,
+[contenteditable="true"],
+[role="textbox"] {
+  cursor: text;
+}
+
+input[type="checkbox"],
+input[type="radio"],
+input[type="range"] {
+  cursor: pointer;
+}
+
+[draggable="true"] {
+  cursor: grab;
+}
+
+[draggable="true"]:active {
+  cursor: grabbing;
 }
 
 button:not(:disabled) {
