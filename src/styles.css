@@ -49,43 +49,31 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 6.5rem;
-  scrollbar-width: thin;
+  /* Keep the platform's full-size scrollbar for reliable mouse and keyboard use. */
+  scrollbar-width: auto;
   scrollbar-color: var(--theme-celadon) var(--theme-paper-alt);
 }
 
-html::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
-}
+/* Legacy fallback only. Modern engines use the standardized properties above. */
+@supports not (scrollbar-color: auto) {
+  html::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
 
-html::-webkit-scrollbar-track {
-  background: var(--theme-paper-alt);
-}
+  html::-webkit-scrollbar-track {
+    background: var(--theme-paper-alt);
+  }
 
-html::-webkit-scrollbar-thumb {
-  background: var(--theme-celadon);
-  border: 3px solid var(--theme-paper-alt);
-  border-radius: 999px;
-}
+  html::-webkit-scrollbar-thumb {
+    background: var(--theme-celadon);
+    border: 3px solid var(--theme-paper-alt);
+    border-radius: 999px;
+  }
 
-html::-webkit-scrollbar-thumb:hover {
-  background: var(--theme-cinnabar);
-}
-
-:root.dark html,
-:root[data-theme="dark"] html {
-  scrollbar-color: var(--theme-celadon) var(--theme-paper-alt);
-}
-
-:root.dark html::-webkit-scrollbar-track,
-:root[data-theme="dark"] html::-webkit-scrollbar-track {
-  background: var(--theme-paper-alt);
-}
-
-:root.dark html::-webkit-scrollbar-thumb,
-:root[data-theme="dark"] html::-webkit-scrollbar-thumb {
-  background: var(--theme-celadon);
-  border-color: var(--theme-paper-alt);
+  html::-webkit-scrollbar-thumb:hover {
+    background: var(--theme-cinnabar);
+  }
 }
 
 .scroll-progress {
@@ -148,39 +136,26 @@ html::-webkit-scrollbar-thumb:hover {
 }
 
 .pin-rail {
-  scrollbar-width: thin;
+  /* Keep the horizontal chapter rail visibly scrollable on compact layouts. */
+  scrollbar-width: auto;
   scrollbar-color: var(--theme-celadon) var(--theme-paper-alt);
 }
 
-.pin-rail::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
-}
+@supports not (scrollbar-color: auto) {
+  .pin-rail::-webkit-scrollbar {
+    width: 12px;
+    height: 8px;
+  }
 
-.pin-rail::-webkit-scrollbar-track {
-  background: var(--theme-paper-alt);
-}
+  .pin-rail::-webkit-scrollbar-track {
+    background: var(--theme-paper-alt);
+  }
 
-.pin-rail::-webkit-scrollbar-thumb {
-  background: var(--theme-celadon);
-  border: 3px solid var(--theme-paper-alt);
-  border-radius: 999px;
-}
-
-:root.dark .pin-rail,
-:root[data-theme="dark"] .pin-rail {
-  scrollbar-color: var(--theme-celadon) var(--theme-paper-alt);
-}
-
-:root.dark .pin-rail::-webkit-scrollbar-track,
-:root[data-theme="dark"] .pin-rail::-webkit-scrollbar-track {
-  background: var(--theme-paper-alt);
-}
-
-:root.dark .pin-rail::-webkit-scrollbar-thumb,
-:root[data-theme="dark"] .pin-rail::-webkit-scrollbar-thumb {
-  background: var(--theme-celadon);
-  border-color: var(--theme-paper-alt);
+  .pin-rail::-webkit-scrollbar-thumb {
+    background: var(--theme-celadon);
+    border: 2px solid var(--theme-paper-alt);
+    border-radius: 999px;
+  }
 }
 
 .pin-current {
@@ -310,12 +285,6 @@ label[for] {
   cursor: pointer;
 }
 
-button:disabled,
-[aria-disabled="true"],
-:disabled {
-  cursor: not-allowed;
-}
-
 input:not([type]),
 input[type="text"],
 input[type="search"],
@@ -342,6 +311,21 @@ input[type="range"] {
 
 [draggable="true"]:active {
   cursor: grabbing;
+}
+
+/* Put disabled states last and match control specificity so they always win. */
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled,
+button[aria-disabled="true"],
+input[aria-disabled="true"],
+select[aria-disabled="true"],
+textarea[aria-disabled="true"],
+a[href][aria-disabled="true"],
+[role="button"][aria-disabled="true"],
+[role="option"][aria-disabled="true"] {
+  cursor: not-allowed;
 }
 
 button:not(:disabled) {
