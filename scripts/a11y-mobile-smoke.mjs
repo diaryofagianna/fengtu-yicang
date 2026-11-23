@@ -41,6 +41,11 @@ try {
       const root = document.documentElement;
       const buttons = [...document.querySelectorAll("#granaries button")];
       const gridButtons = [...document.querySelectorAll("#granaries .vault-grid-cell")];
+      const mapButtons = [...document.querySelectorAll("#granaries .vault-map-cell[role="button"]")];
+      const gridLabels = new Set(gridButtons.map((button) => button.getAttribute("aria-label")));
+      const mapButtonsWithoutEquivalent = mapButtons
+        .filter((button) => !gridLabels.has(button.getAttribute("aria-label")))
+        .map((button) => button.getAttribute("aria-label"));
       const undersized = buttons
         .map((el) => {
           const rect = el.getBoundingClientRect();
@@ -59,8 +64,11 @@ try {
         documentWidth: root.scrollWidth,
         clientWidth: root.clientWidth,
         horizontalOverflow: root.scrollWidth > root.clientWidth + 1,
-        mapCellCount: document.querySelectorAll("#granaries .vault-map-cell").length,
+        mapCellCount: mapButtons.length,
         gridButtonCount: gridButtons.length,
+        mapButtonsWithoutEquivalent,
+        mapKeyboardTabStops: mapButtons.filter((button) => button.tabIndex === 0).length,
+        gridTabStops: gridButtons.filter((button) => button.tabIndex === 0).length,
         undersizedTargets: undersized,
         gridTargetsBelow44px: shortGridTargets,
       };
@@ -69,6 +77,9 @@ try {
     assert.equal(layout.horizontalOverflow, false, `${viewport.name}: horizontal page overflow`);
     assert.equal(layout.mapCellCount, 58, `${viewport.name}: expected 58 map controls`);
     assert.equal(layout.gridButtonCount, 58, `${viewport.name}: expected 58 equivalent grid controls`);
+    assert.deepEqual(layout.mapButtonsWithoutEquivalent, [], `${viewport.name}: every compact SVG target must have an equivalent labelled grid control`);
+    assert.equal(layout.mapKeyboardTabStops, 1, `${viewport.name}: the SVG map should expose one roving keyboard tab stop`);
+    assert.equal(layout.gridTabStops, 58, `${viewport.name}: each equivalent numbered button should remain reachable by keyboard`);
     assert.deepEqual(layout.undersizedTargets, [], `${viewport.name}: a granary control is below WCAG 24×24 CSS px`);
     assert.deepEqual(layout.gridTargetsBelow44px, [], `${viewport.name}: a granary grid target is below the 44px design goal`);
 
@@ -153,7 +164,9 @@ try {
       ...layout,
       keyboardFocus: "visible",
       tabArrowNavigation: "passed",
+      horizontalTabDownArrowUnmodified: "by APG pattern (not intercepted)",
       svgMapKeyboardNavigation: "passed",
+      svgTargetEquivalentControls: "58 labelled 44px grid buttons",
       touchSelection: viewport.hasTouch ? "passed" : "not applicable",
       pageErrors,
     });
