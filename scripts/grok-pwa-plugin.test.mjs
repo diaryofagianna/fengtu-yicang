@@ -6,9 +6,9 @@ import { fileURLToPath } from "node:url";
 import test from "node:test";
 import {
   appNameFromHost,
-  createHeadInjector,
+  createHeadInjector as createHeadInjectorFromShared,
   grokXCreatorHeadTags,
-  injectGrokPwaHead,
+  injectGrokPwaHead as injectGrokPwaHeadFromShared,
   isDocumentPath,
   isInstallQuery,
   publicAppHost,
@@ -20,6 +20,18 @@ import {
 import { renderInstallPage } from "./grok-pwa-plugin.mjs";
 
 const TEMPLATE_ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+
+// The repository has its own site.json and public/og.jpg; unit fixtures must not inherit either.
+const ISOLATED_APP_ROOT = mkdtempSync(join(tmpdir(), "grok-pwa-isolated-app-"));
+function testAppContext(context = {}) {
+  return { cwd: ISOLATED_APP_ROOT, site: {}, ...context };
+}
+function injectGrokPwaHead(html, context) {
+  return injectGrokPwaHeadFromShared(html, testAppContext(context));
+}
+function createHeadInjector(context) {
+  return createHeadInjectorFromShared(testAppContext(context));
+}
 
 test("injects before </head>", () => {
   const out = injectGrokPwaHead("<html><head><title>x</title></head><body></body></html>");
