@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 
 type Bi = { vi: string; zh: string };
 type SideId = "south" | "east" | "north" | "west";
@@ -150,6 +151,11 @@ export function VaultExplorer({ lang }: { lang: string }) {
   const [n, setN] = useState(58);
   const [tab, setTab] = useState<"shell" | "measure" | "look">("shell");
   const gridRef = useRef<HTMLDivElement>(null);
+const rootRef = useRef<HTMLElement>(null);
+
+useEffect(() => {
+  rootRef.current?.setAttribute("data-hydrated", "true");
+}, []);
   const zh = lang === "zh";
   const { cell, side } = sideOf(n);
   const code = String(n).padStart(2, "0");
@@ -182,8 +188,63 @@ export function VaultExplorer({ lang }: { lang: string }) {
     { id: "look", label: { vi: "Đứng đây", zh: "当场" } },
   ];
 
+  const handleMapCellKeyDown = (event: ReactKeyboardEvent<SVGGElement>, current: number) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      setN(current);
+      return;
+    }
+
+    let next: number;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+      next = current === CELLS.length ? 1 : current + 1;
+    } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+      next = current === 1 ? CELLS.length : current - 1;
+    } else if (event.key === "Home") {
+      next = 1;
+    } else if (event.key === "End") {
+      next = CELLS.length;
+    } else {
+      return;
+    }
+
+    event.preventDefault();
+    setN(next);
+    window.requestAnimationFrame(() => {
+      document.getElementById(`vault-map-cell-${next}`)?.focus();
+    });
+  };
+
+  const handleTabKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>, current: typeof tab) => {
+    const currentIndex = tabs.findIndex((item) => item.id === current);
+    let nextIndex: number;
+
+    if (event.key === "ArrowRight") {
+      nextIndex = (currentIndex + 1) % tabs.length;
+    } else if (event.key === "ArrowLeft") {
+      nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+    } else if (event.key === "Home") {
+      nextIndex = 0;
+    } else if (event.key === "End") {
+      nextIndex = tabs.length - 1;
+    } else {
+      return;
+    }
+
+    event.preventDefault();
+    const nextTab = tabs[nextIndex];
+    setTab(nextTab.id);
+    window.requestAnimationFrame(() => {
+      document.getElementById(`vault-tab-${nextTab.id}`)?.focus();
+    });
+  };
+
   return (
-    <section id="granaries" className="scroll-mt-24 border-b border-line/27 py-14 sm:py-16">
+    <section
+  ref={rootRef}
+  id="granaries"
+  className="scroll-mt-24 border-b border-line/27 py-14 sm:py-16"
+>
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
@@ -230,7 +291,7 @@ export function VaultExplorer({ lang }: { lang: string }) {
               <span>{zh ? "内城平面 · 仓廒环列" : "Mặt bằng thành trong · vòng 58 gian"}</span>
               <span className="font-mono text-cinnabar tabular-nums">{PUBLISHED.city}</span>
             </div>
-            <svg viewBox="0 0 640 420" className="w-full border border-line/36 bg-paper text-ink" role="img" aria-label={zh ? "五十八廒环状导览图" : "Sơ đồ vòng 58 gian kho"}>
+            <svg viewBox="0 0 640 420" className="w-full border border-line/36 bg-paper text-ink" role="group" aria-label={zh ? "五十八廒环状导览图，可用方向键选择" : "Sơ đồ vòng 58 gian kho; dùng phím mũi tên để chọn"}>
               <rect x="78" y="52" width="484" height="300" fill="none" stroke="currentColor" strokeOpacity="0.35" strokeWidth="10" />
               <rect x="108" y="86" width="424" height="232" fill="color-mix(in srgb, var(--theme-celadon) 8%, transparent)" stroke="currentColor" strokeOpacity="0.2" />
               <circle cx="320" cy="202" r="7" fill="none" stroke="var(--theme-celadon)" strokeWidth="1.5" />
@@ -245,7 +306,17 @@ export function VaultExplorer({ lang }: { lang: string }) {
               {CELLS.map((c) => {
                 const on = c.n === n;
                 return (
-                  <g key={c.n} onClick={() => setN(c.n)} className="cursor-pointer">
+                  <g
+                    key={c.n}
+                    id={`vault-map-cell-${c.n}`}
+                    className="vault-map-cell cursor-pointer"
+                    role="button"
+                    tabIndex={on ? 0 : -1}
+                    aria-pressed={on}
+                    aria-label={zh ? `第 ${String(c.n).padStart(2, "0")} 号仓廒` : `Gian kho ${String(c.n).padStart(2, "0")}`}
+                    onClick={() => setN(c.n)}
+                    onKeyDown={(event) => handleMapCellKeyDown(event, c.n)}
+                  >
                     <rect
                       x={c.x}
                       y={c.y}
@@ -270,7 +341,8 @@ export function VaultExplorer({ lang }: { lang: string }) {
                     type="button"
                     aria-pressed={on}
                     onClick={() => setN(c.n)}
-                    className={`min-h-10 border font-mono text-xs tabular-nums ${on ? "border-cinnabar bg-cinnabar font-bold text-paper" : "border-line/36 bg-paper text-ink/80"}`}
+                    className={`vault-grid-cell min-h-11 border font-mono text-xs tabular-nums ${on ? "border-cinnabar bg-cinnabar font-bold text-paper" : "border-line/36 bg-paper text-ink/80"}`}
+                    aria-label={zh ? `第 ${String(c.n).padStart(2, "0")} 号仓廒` : `Gian kho ${String(c.n).padStart(2, "0")}`}
                   >
                     {String(c.n).padStart(2, "0")}
                   </button>
@@ -298,16 +370,20 @@ export function VaultExplorer({ lang }: { lang: string }) {
               </div>
             </div>
 
-            <div className="mt-4 flex border border-line/36 bg-paper-alt/60 p-0.5" role="tablist">
+            <div className="mt-4 flex border border-line/36 bg-paper-alt/60 p-0.5" role="tablist" aria-orientation="horizontal" aria-label={zh ? "仓廒档案标签" : "Thẻ thông tin gian kho"}>
               {tabs.map((item) => {
                 const on = tab === item.id;
                 return (
                   <button
                     key={item.id}
                     type="button"
+                    id={`vault-tab-${item.id}`}
                     role="tab"
                     aria-selected={on}
+                    aria-controls="vault-tab-panel"
+                    tabIndex={on ? 0 : -1}
                     onClick={() => setTab(item.id)}
+                    onKeyDown={(event) => handleTabKeyDown(event, item.id)}
                     className={`min-h-11 flex-1 px-2 text-xs ${on ? "bg-ink text-paper" : "text-ink/75"}`}
                   >
                     {zh ? item.label.zh : item.label.vi}
@@ -316,7 +392,7 @@ export function VaultExplorer({ lang }: { lang: string }) {
               })}
             </div>
 
-            <div className="mt-4" role="tabpanel">
+            <div className="mt-4" id="vault-tab-panel" role="tabpanel" aria-labelledby={`vault-tab-${tab}`} tabIndex={0}>
               {tab === "shell" && (
                 <div className="space-y-3">
                   <img src="/figures/storage.jpg" alt={zh ? "仓廒内部：架空木地板与高侧气窗，非某一编号的专属照片" : "Bên trong một gian vòm: sàn gỗ kê cao và cửa gió trên cao. Ảnh kiểu gian, không phải ảnh riêng của số đang chọn."} className="aspect-[3/2] w-full object-cover" decoding="async" loading="lazy" />

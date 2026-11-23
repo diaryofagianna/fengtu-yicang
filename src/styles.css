@@ -175,6 +175,12 @@ html {
   pointer-events: none;
 }
 
+/* A keyboard-focused control must be able to reveal the auto-hidden sticky bar. */
+.pin-bar.pin-away:focus-within {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
 .pin-menu {
   box-shadow: 0 14px 32px #2c2c2d18;
   transform-origin: top right;
@@ -326,6 +332,56 @@ a[href][aria-disabled="true"],
 [role="button"][aria-disabled="true"],
 [role="option"][aria-disabled="true"] {
   cursor: not-allowed;
+}
+
+
+/* Consistent keyboard focus across native controls and custom interactive widgets. */
+:where(
+  a[href],
+  button,
+  input:not([type="hidden"]),
+  select,
+  textarea,
+  summary,
+  [contenteditable="true"],
+  [role="button"],
+  [role="tab"],
+  [role="option"],
+  [tabindex]:not([tabindex="-1"])
+):focus-visible {
+  outline: 2px solid var(--theme-cinnabar);
+  outline-offset: 3px;
+}
+
+.vault-map-cell:focus-visible rect {
+  stroke: var(--theme-ink);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 1px var(--theme-paper));
+}
+
+@media (forced-colors: active) {
+  :where(
+    a[href],
+    button,
+    input:not([type="hidden"]),
+    select,
+    textarea,
+    summary,
+    [contenteditable="true"],
+    [role="button"],
+    [role="tab"],
+    [role="option"],
+    [tabindex]:not([tabindex="-1"])
+  ):focus-visible {
+    outline: 2px solid Highlight !important;
+    outline-offset: 3px;
+    box-shadow: none !important;
+  }
+
+  .vault-map-cell:focus-visible rect {
+    stroke: Highlight;
+    filter: none;
+  }
 }
 
 button:not(:disabled) {
