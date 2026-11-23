@@ -164,7 +164,6 @@ try {
       ...layout,
       keyboardFocus: "visible",
       tabArrowNavigation: "passed",
-      horizontalTabDownArrowUnmodified: "by APG pattern (not intercepted)",
       svgMapKeyboardNavigation: "passed",
       svgTargetEquivalentControls: "58 labelled 44px grid buttons",
       touchSelection: viewport.hasTouch ? "passed" : "not applicable",
