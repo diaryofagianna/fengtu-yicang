@@ -4,7 +4,7 @@ import { chromium } from "playwright";
 
 const rawUrl = process.env.A11Y_BASE_URL ?? "http://127.0.0.1:8080/";
 const url = new URL(rawUrl);
-const loopbackHosts = new Set(["127.0.0.1", "localhost", "::1", "[::1]");
+const loopbackHosts = new Set(["127.0.0.1", "localhost", "::1", "[::1]"]);
 
 if (!["http:", "https:"].includes(url.protocol) || !loopbackHosts.has(url.hostname)) {
   throw new Error("A11Y_BASE_URL must be an http(s) loopback URL (localhost or 127.0.0.1).");
